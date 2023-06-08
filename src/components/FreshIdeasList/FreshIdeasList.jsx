@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
-import Title from "../ui/Title/Title";
+import Title from "../../components/ui/Title/Title";
 import { StyledContainer, StyledDivider } from "./FreshIdeasList.styled";
-import IdeaItem from "../IdeaItem/IdeaItem";
+import IdeaItem from "../../components/IdeaItem/IdeaItem";
 
 const ideasList = [
   { id: 1, activity: "Learn how to fold a paper crane", type: "Education" },

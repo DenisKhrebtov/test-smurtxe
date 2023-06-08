@@ -1,5 +1,4 @@
 import Title from "../ui/Title/Title";
-import { Grid } from "@mui/material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -21,9 +20,9 @@ const ideasList = [
   },
 ];
 
-const slideStyle = {
-  margin: "0 10px", // Задаем расстояние между слайдами
-};
+// const slideStyle = {
+//   margin: "0 10px", // Задаем расстояние между слайдами
+// };
 
 const MyIdeasList = () => {
   return (
