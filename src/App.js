@@ -18,7 +18,7 @@ function App() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://test-smurtxe-back-production.up.railway.app/api/ideas"
+        "https://test-smurtxe-back-production.up.railway.app/api/ideas"
       );
       setIdeas(response.data.data.ideas);
     } catch (error) {
@@ -29,7 +29,7 @@ function App() {
   const addNewIdea = async (newIdea) => {
     try {
       const response = await axios.post(
-        "http://test-smurtxe-back-production.up.railway.app/api/ideas",
+        "https://test-smurtxe-back-production.up.railway.app/api/ideas",
         newIdea
       );
       toast.success("Your idea successfully added");
@@ -43,7 +43,7 @@ function App() {
   const deleteIdea = async (id) => {
     try {
       const response = await axios.delete(
-        `http://test-smurtxe-back-production.up.railway.app/api/ideas/${id}`
+        `https://test-smurtxe-back-production.up.railway.app/api/ideas/${id}`
       );
       fetchData();
       toast.info("Idea successfully deleted");
@@ -57,7 +57,7 @@ function App() {
   const selectIdea = async (id, data) => {
     try {
       const response = await axios.patch(
-        `http://test-smurtxe-back-production.up.railway.app/api/ideas/${id}/selected`,
+        `https://test-smurtxe-back-production.up.railway.app/api/ideas/${id}/selected`,
         data
       );
       fetchData();
@@ -71,7 +71,7 @@ function App() {
   const addToCompleted = async (id, data) => {
     try {
       const response = await axios.patch(
-        `http://test-smurtxe-back-production.up.railway.app/api/ideas/${id}/completed`,
+        `https://test-smurtxe-back-production.up.railway.app/api/ideas/${id}/completed`,
         data
       );
       fetchData();
