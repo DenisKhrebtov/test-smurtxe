@@ -10,95 +10,109 @@ import IdeaItem from "../IdeaItem/IdeaItem";
 
 import { CarouselBadge } from "./MyIdeasList.styled";
 
-const ideasList = [
-  { id: 1, activity: "Learn how to fold a paper crane", type: "Education" },
-  { id: 2, activity: "Make a bucket list", type: "Busywork" },
-  {
-    id: 3,
-    activity: "Do something you used to do as a kid",
-    type: "Relaxation",
-  },
-  {
-    id: 4,
-    activity: "Listen to your favorite album",
-    type: "Music",
-  },
-];
+// const ideasList = [
+//   { id: 1, activity: "Learn how to fold a paper crane", type: "Education" },
+//   { id: 2, activity: "Make a bucket list", type: "Busywork" },
+//   {
+//     id: 3,
+//     activity: "Do something you used to do as a kid",
+//     type: "Relaxation",
+//   },
+//   {
+//     id: 4,
+//     activity: "Listen to your favorite album",
+//     type: "Music",
+//   },
+// ];
 
-const MyIdeasList = () => {
+const MyIdeasList = ({ ideasList, addToCompleted, deleteIdea }) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
+  const filteredIdeas = ideasList.filter(
+    (idea) => idea.selected && !idea.completed
+  );
+
   const handleSlideChange = (index) => {
-    console.log(ideasList.length);
-    ideasList.length < index ? setActiveIndex(1) : setActiveIndex(index);
+    console.log(ideasList);
+    console.log(filteredIdeas.length);
+    console.log(index);
+    filteredIdeas.length < index ? setActiveIndex(1) : setActiveIndex(index);
   };
 
   return (
     <section>
       <Title>Ideas in my list</Title>
-
-      <Carousel
-        arrows
-        autoPlaySpeed={3000}
-        draggable
-        focusOnSelect={false}
-        infinite
-        keyBoardControl
-        minimumTouchDrag={80}
-        pauseOnHover
-        renderArrowsWhenDisabled={false}
-        renderButtonGroupOutside={false}
-        renderDotsOutside={false}
-        afterChange={handleSlideChange}
-        responsive={{
-          desktop: {
-            breakpoint: {
-              max: 3000,
-              min: 1024,
+      {!filteredIdeas.length ? (
+        "No ideas in your list"
+      ) : (
+        <Carousel
+          arrows
+          autoPlaySpeed={3000}
+          draggable
+          focusOnSelect={false}
+          infinite
+          keyBoardControl
+          minimumTouchDrag={80}
+          pauseOnHover
+          renderArrowsWhenDisabled={false}
+          renderButtonGroupOutside={false}
+          renderDotsOutside={false}
+          afterChange={handleSlideChange}
+          responsive={{
+            desktop: {
+              breakpoint: {
+                max: 3000,
+                min: 1024,
+              },
+              items: 3,
+              partialVisibilityGutter: 40,
             },
-            items: 3,
-            partialVisibilityGutter: 40,
-          },
-          mobile: {
-            breakpoint: {
-              max: 464,
-              min: 0,
+            mobile: {
+              breakpoint: {
+                max: 464,
+                min: 0,
+              },
+              items: 1,
+              partialVisibilityGutter: 30,
             },
-            items: 1,
-            partialVisibilityGutter: 30,
-          },
-          tablet: {
-            breakpoint: {
-              max: 1024,
-              min: 464,
+            tablet: {
+              breakpoint: {
+                max: 1024,
+                min: 464,
+              },
+              items: 2,
+              partialVisibilityGutter: 30,
             },
-            items: 2,
-            partialVisibilityGutter: 30,
-          },
-        }}
-        rewind={false}
-        rewindWithAnimation={false}
-        rtl={false}
-        shouldResetAutoplay
-        showDots={false}
-        slidesToSlide={1}
-        swipeable
-      >
-        {ideasList.map(({ id, activity, type }) => (
-          <IdeaItem
-            key={id}
-            activity={activity}
-            type={type}
-            margin={"margin"}
-          />
-        ))}
-      </Carousel>
-      <CarouselBadge>
-        <p>
-          {activeIndex} of {ideasList.length}
-        </p>
-      </CarouselBadge>
-
+          }}
+          rewind={false}
+          rewindWithAnimation={false}
+          rtl={false}
+          shouldResetAutoplay
+          showDots={false}
+          slidesToSlide={1}
+          swipeable
+        >
+          {filteredIdeas.map(({ _id, activity, type, selected }) => (
+            <IdeaItem
+              key={_id}
+              id={_id}
+              activity={activity}
+              type={type}
+              margin={"margin"}
+              selected={selected}
+              addToCompleted={addToCompleted}
+              deleteIdea={deleteIdea}
+            />
+          ))}
+        </Carousel>
+      )}
+      {!filteredIdeas.length ? null : (
+        <CarouselBadge>
+          <p>
+            {activeIndex} of {filteredIdeas.length}
+          </p>
+        </CarouselBadge>
+      )}
       <Divider />
     </section>
   );

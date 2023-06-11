@@ -7,16 +7,19 @@ import {
   AddButton,
 } from "./AddIdeaModal.styled";
 
-const AddIdeaModal = ({ open, onClose, addIdea }) => {
+const AddIdeaModal = ({ open, onClose, addNewIdea }) => {
   const handleClose = () => onClose(false);
 
-  const addNewIdea = async (e) => {
+  const addIdea = async (e) => {
     e.preventDefault();
+
+    if (!e.target[0].value && !e.target[2].value) return;
+
     const newIdea = {
       activity: e.target[0].value,
       type: e.target[2].value,
     };
-    addIdea(newIdea);
+    await addNewIdea(newIdea);
     onClose(false);
   };
 
@@ -24,7 +27,7 @@ const AddIdeaModal = ({ open, onClose, addIdea }) => {
     <Modal open={open} onClose={handleClose}>
       <ModalWindow>
         <Wrapper>
-          <StyledFormControl onSubmit={(e) => addNewIdea(e)}>
+          <StyledFormControl onSubmit={(e) => addIdea(e)}>
             <TextField
               id="outlined-basic"
               label="Activity"

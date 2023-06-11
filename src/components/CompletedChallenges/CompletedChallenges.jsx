@@ -11,29 +11,13 @@ import {
   StyledTableHead,
   StyledTableHeadCol,
 } from "./CompletedChallenges.styled";
+import dateFormate from "../../utils/dateFormate";
 
-const rowsList = [
-  {
-    id: 1,
-    title: "Learn how to fold a...",
-    type: "Education",
-    date: "Just now",
-  },
-  {
-    id: 2,
-    title: "Learn how to fold a...",
-    type: "Relaxation",
-    date: "Yesterday",
-  },
-  {
-    id: 3,
-    title: "Learn how to fold a...",
-    type: "Sport",
-    date: "A week ago",
-  },
-];
+const CompletedChallenges = ({ ideasList }) => {
+  const filteredList = ideasList.filter((idea) => idea.completed);
 
-const CompletedChallenges = () => {
+  console.log(filteredList);
+
   return (
     <section>
       <Title>Completed challenges</Title>
@@ -48,17 +32,21 @@ const CompletedChallenges = () => {
             </TableRow>
           </StyledTableHead>
           <TableBody>
-            {rowsList.map(({ id, title, type, date }) => (
+            {filteredList.map(({ _id, activity, type, updatedAt }, index) => (
               <TableRow
-                key={id}
+                key={_id}
                 sx={{ "&:last-child td, &:last-child th": { border: "1px" } }}
               >
                 <StyledTableHeadCol component="th" scope="row">
-                  {id}
+                  {index + 1}
                 </StyledTableHeadCol>
-                <StyledTableHeadCol align="center">{title}</StyledTableHeadCol>
+                <StyledTableHeadCol align="center">
+                  {activity}
+                </StyledTableHeadCol>
                 <StyledTableHeadCol align="center">{type}</StyledTableHeadCol>
-                <StyledTableHeadCol align="center">{date}</StyledTableHeadCol>
+                <StyledTableHeadCol align="center">
+                  {dateFormate(updatedAt)}
+                </StyledTableHeadCol>
               </TableRow>
             ))}
           </TableBody>

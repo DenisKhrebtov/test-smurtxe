@@ -7,19 +7,25 @@ import { AddButton } from "./FreshIdeasList.styled";
 import AddIdeaModal from "../AddIdeaModal/AddIdeaModal";
 import { useState } from "react";
 
-const FreshIdeasList = ({ ideasList, addIdea }) => {
+const FreshIdeasList = ({ ideasList, addNewIdea, deleteIdea, selectIdea }) => {
   const [open, setOpen] = useState(false);
+
+  const filteredList = ideasList.filter((idea) => !idea.selected);
 
   return (
     <section>
       <Title>Choose fresh ideas to do</Title>
       <Grid container spacing={{ sm: 2, md: 4 }} columns={{ md: 12 }}>
-        {ideasList.map(({ _id, activity, type }) => (
+        {filteredList.map(({ _id, activity, type, selected }) => (
           <IdeaItem
             key={_id}
+            id={_id}
             activity={activity}
             type={type}
             hover={"scale(1.1)"}
+            deleteIdea={deleteIdea}
+            selectIdea={selectIdea}
+            selected={selected}
           />
         ))}
         <Grid item sm={6} md={3}>
@@ -27,7 +33,9 @@ const FreshIdeasList = ({ ideasList, addIdea }) => {
         </Grid>
       </Grid>
       <Divider />
-      {open && <AddIdeaModal open={open} onClose={setOpen} addIdea={addIdea} />}
+      {open && (
+        <AddIdeaModal open={open} onClose={setOpen} addNewIdea={addNewIdea} />
+      )}
     </section>
   );
 };

@@ -8,41 +8,25 @@ import {
   StyledType,
 } from "./Achievements.styled";
 
-const achievementsList = [
-  {
-    id: 1,
-    quantity: 1,
-    type: "Recreational",
-  },
-  {
-    id: 2,
-    quantity: 3,
-    type: "Social",
-  },
-  {
-    id: 3,
-    quantity: 5,
-    type: "Education",
-  },
-  {
-    id: 4,
-    quantity: 3,
-    type: "Sport",
-  },
-  {
-    id: 5,
-    quantity: 11,
-    type: "Relaxation",
-  },
-];
+const Achievements = ({ ideasList }) => {
+  const countType = Object.entries(
+    ideasList
+      .filter((idea) => idea.completed)
+      .reduce((acc, obj) => {
+        const key = obj.type;
+        acc[key] = (acc[key] || 0) + 1;
+        return acc;
+      }, {})
+  ).map(([key, quantity]) => ({ type: key, quantity }));
 
-const Achievements = () => {
+  console.log(countType);
+
   return (
     <section>
       <Title>Achievements</Title>
       <StyledGrid container spacing={{ sm: 2, md: 3 }} columns={{ md: 12 }}>
-        {achievementsList.map(({ id, type, quantity }) => (
-          <StyledGridItem item sm={6} md={4} key={id}>
+        {countType.map(({ type, quantity }, index) => (
+          <StyledGridItem item sm={6} md={4} key={index + 1}>
             <Quantity>{quantity}</Quantity>
             <StyledType>{type}</StyledType>
           </StyledGridItem>
