@@ -1,9 +1,14 @@
-import Title from "../ui/Title/Title";
+import { useState } from "react";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+import Title from "../ui/Title/Title";
+import Divider from "../ui/Divider/Divider";
+
 import IdeaItem from "../IdeaItem/IdeaItem";
-import { StyledContainer } from "../FreshIdeasList/FreshIdeasList.styled";
+
+import { CarouselBadge } from "./MyIdeasList.styled";
 
 const ideasList = [
   { id: 1, activity: "Learn how to fold a paper crane", type: "Education" },
@@ -20,31 +25,31 @@ const ideasList = [
   },
 ];
 
-// const slideStyle = {
-//   margin: "0 10px", // Задаем расстояние между слайдами
-// };
-
 const MyIdeasList = () => {
+  const [activeIndex, setActiveIndex] = useState(1);
+
+  const handleSlideChange = (index) => {
+    console.log(ideasList.length);
+    ideasList.length < index ? setActiveIndex(1) : setActiveIndex(index);
+  };
+
   return (
-    <StyledContainer maxWidth="lg">
+    <section>
       <Title>Ideas in my list</Title>
 
       <Carousel
-        additionalTransfrom={0}
         arrows
         autoPlaySpeed={3000}
-        className=""
-        dotListClass=""
         draggable
         focusOnSelect={false}
         infinite
-        itemClass=""
         keyBoardControl
         minimumTouchDrag={80}
         pauseOnHover
         renderArrowsWhenDisabled={false}
         renderButtonGroupOutside={false}
         renderDotsOutside={false}
+        afterChange={handleSlideChange}
         responsive={{
           desktop: {
             breakpoint: {
@@ -80,10 +85,22 @@ const MyIdeasList = () => {
         swipeable
       >
         {ideasList.map(({ id, activity, type }) => (
-          <IdeaItem key={id} activity={activity} type={type} />
+          <IdeaItem
+            key={id}
+            activity={activity}
+            type={type}
+            margin={"margin"}
+          />
         ))}
       </Carousel>
-    </StyledContainer>
+      <CarouselBadge>
+        <p>
+          {activeIndex} of {ideasList.length}
+        </p>
+      </CarouselBadge>
+
+      <Divider />
+    </section>
   );
 };
 

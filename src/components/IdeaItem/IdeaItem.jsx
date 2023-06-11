@@ -1,15 +1,16 @@
 import { Typography, Grid } from "@mui/material";
-import { Item, StyledDivider } from "./IdeaItem.styled";
+import { Item } from "./IdeaItem.styled";
+import Divider from "../ui/Divider/Divider";
 
-const IdeaItem = ({ activity, type }) => {
+const IdeaItem = ({ activity, type, hover, margin }) => {
   return (
     <Grid item sm={6} md={3}>
-      <Item>
+      <Item hover={hover} margin={margin}>
         <Typography variant="h5" component="h3" align="center">
           {activity}
         </Typography>
-        <StyledDivider />
-        <Typography variant="h6" component="h3" align="center">
+        <Divider />
+        <Typography variant="h6" component="p" align="center">
           {type}
         </Typography>
       </Item>

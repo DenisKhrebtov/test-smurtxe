@@ -1,34 +1,34 @@
 import { Grid } from "@mui/material";
-import Title from "../../components/ui/Title/Title";
-import { StyledContainer, StyledDivider } from "./FreshIdeasList.styled";
-import IdeaItem from "../../components/IdeaItem/IdeaItem";
+import Title from "../ui/Title/Title";
+import Divider from "../ui/Divider/Divider";
 
-const ideasList = [
-  { id: 1, activity: "Learn how to fold a paper crane", type: "Education" },
-  { id: 2, activity: "Make a bucket list", type: "Busywork" },
-  {
-    id: 3,
-    activity: "Do something you used to do as a kid",
-    type: "Relaxation",
-  },
-  {
-    id: 4,
-    activity: "Listen to your favorite album",
-    type: "Music",
-  },
-];
+import IdeaItem from "../IdeaItem/IdeaItem";
+import { AddButton } from "./FreshIdeasList.styled";
+import AddIdeaModal from "../AddIdeaModal/AddIdeaModal";
+import { useState } from "react";
 
-const FreshIdeasList = () => {
+const FreshIdeasList = ({ ideasList, addIdea }) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <StyledContainer maxWidth="lg">
+    <section>
       <Title>Choose fresh ideas to do</Title>
       <Grid container spacing={{ sm: 2, md: 4 }} columns={{ md: 12 }}>
-        {ideasList.map(({ id, activity, type }) => (
-          <IdeaItem key={id} activity={activity} type={type} />
+        {ideasList.map(({ _id, activity, type }) => (
+          <IdeaItem
+            key={_id}
+            activity={activity}
+            type={type}
+            hover={"scale(1.1)"}
+          />
         ))}
+        <Grid item sm={6} md={3}>
+          <AddButton onClick={() => setOpen(true)}>+</AddButton>
+        </Grid>
       </Grid>
-      <StyledDivider />
-    </StyledContainer>
+      <Divider />
+      {open && <AddIdeaModal open={open} onClose={setOpen} addIdea={addIdea} />}
+    </section>
   );
 };
 

@@ -1,8 +1,8 @@
-import { Paper, Divider } from "@mui/material";
+import { Paper } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
-export const Item = styled(Paper)(({ theme }) => ({
+export const Item = styled(Paper)(({ theme, hover, margin }) => ({
   backgroundColor: theme.palette.accent.main,
   padding: theme.spacing(3),
   paddingTop: theme.spacing(6),
@@ -12,12 +12,16 @@ export const Item = styled(Paper)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   position: "relative",
-}));
+  margin: margin && theme.spacing(2),
 
-export const StyledDivider = styled(Divider)(({ theme }) => ({
-  marginBottom: theme.spacing(3),
-  marginTop: theme.spacing(6),
-  borderWidth: "1px",
+  transition: "transform 300ms ease",
 
-  color: theme.palette.primary.main,
+  "&:hover": {
+    transform: hover,
+  },
+
+  "& p": {
+    fontWeight: 600,
+    color: theme.palette.braun.main,
+  },
 }));
