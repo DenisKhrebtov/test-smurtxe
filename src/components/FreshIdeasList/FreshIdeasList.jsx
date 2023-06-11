@@ -1,11 +1,13 @@
+import { useState } from "react";
+
 import { Grid } from "@mui/material";
 import Title from "../ui/Title/Title";
 import Divider from "../ui/Divider/Divider";
 
 import IdeaItem from "../IdeaItem/IdeaItem";
-import { AddButton } from "./FreshIdeasList.styled";
 import AddIdeaModal from "../AddIdeaModal/AddIdeaModal";
-import { useState } from "react";
+
+import { AddButton } from "./FreshIdeasList.styled";
 
 const FreshIdeasList = ({ ideasList, addNewIdea, deleteIdea, selectIdea }) => {
   const [open, setOpen] = useState(false);

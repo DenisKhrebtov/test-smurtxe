@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+
+import { baseURL } from "./utils/axiosDefault";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,24 +15,23 @@ import Spinner from "./components/ui/Spinner";
 
 function App() {
   const [ideas, setIdeas] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://test-smurtxe-back-production.up.railway.app/api/ideas"
-      );
+      setIsLoading(true);
+      const response = await baseURL.get("ideas");
       setIdeas(response.data.data.ideas);
     } catch (error) {
       toast.error("Something is wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const addNewIdea = async (newIdea) => {
     try {
-      const response = await axios.post(
-        "https://test-smurtxe-back-production.up.railway.app/api/ideas",
-        newIdea
-      );
+      const response = await baseURL.post("ideas", newIdea);
       toast.success("Your idea successfully added");
       fetchData();
       return response;
@@ -42,24 +42,18 @@ function App() {
 
   const deleteIdea = async (id) => {
     try {
-      const response = await axios.delete(
-        `https://test-smurtxe-back-production.up.railway.app/api/ideas/${id}`
-      );
+      const response = await baseURL.delete(`ideas/${id}`);
       fetchData();
       toast.info("Idea successfully deleted");
       return response;
     } catch (error) {
-      console.error(error);
       toast.error("Something is wrong");
     }
   };
 
   const selectIdea = async (id, data) => {
     try {
-      const response = await axios.patch(
-        `https://test-smurtxe-back-production.up.railway.app/api/ideas/${id}/selected`,
-        data
-      );
+      const response = await baseURL.patch(`ideas/${id}/selected`, data);
       fetchData();
       toast.info("Idea added to your list");
       return response;
@@ -70,10 +64,7 @@ function App() {
 
   const addToCompleted = async (id, data) => {
     try {
-      const response = await axios.patch(
-        `https://test-smurtxe-back-production.up.railway.app/api/ideas/${id}/completed`,
-        data
-      );
+      const response = await baseURL.patch(`ideas/${id}/completed`, data);
       fetchData();
       toast.success("Congratulation! Your completed your idea!");
       return response;
@@ -90,7 +81,7 @@ function App() {
     }
   }, []);
 
-  return !ideas.length ? (
+  return isLoading ? (
     <Spinner />
   ) : (
     <Container>

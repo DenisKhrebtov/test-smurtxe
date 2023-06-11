@@ -3,27 +3,13 @@ import { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import Title from "../ui/Title/Title";
-import Divider from "../ui/Divider/Divider";
-
 import IdeaItem from "../IdeaItem/IdeaItem";
 
-import { CarouselBadge } from "./MyIdeasList.styled";
+import Title from "../ui/Title/Title";
+import Divider from "../ui/Divider/Divider";
+import Message from "../ui/Message/Message";
 
-// const ideasList = [
-//   { id: 1, activity: "Learn how to fold a paper crane", type: "Education" },
-//   { id: 2, activity: "Make a bucket list", type: "Busywork" },
-//   {
-//     id: 3,
-//     activity: "Do something you used to do as a kid",
-//     type: "Relaxation",
-//   },
-//   {
-//     id: 4,
-//     activity: "Listen to your favorite album",
-//     type: "Music",
-//   },
-// ];
+import { CarouselBadge } from "./MyIdeasList.styled";
 
 const MyIdeasList = ({ ideasList, addToCompleted, deleteIdea }) => {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -33,9 +19,6 @@ const MyIdeasList = ({ ideasList, addToCompleted, deleteIdea }) => {
   );
 
   const handleSlideChange = (index) => {
-    console.log(ideasList);
-    console.log(filteredIdeas.length);
-    console.log(index);
     filteredIdeas.length < index ? setActiveIndex(1) : setActiveIndex(index);
   };
 
@@ -43,7 +26,7 @@ const MyIdeasList = ({ ideasList, addToCompleted, deleteIdea }) => {
     <section>
       <Title>Ideas in my list</Title>
       {!filteredIdeas.length ? (
-        "No ideas in your list"
+        <Message>No ideas in your list</Message>
       ) : (
         <Carousel
           arrows

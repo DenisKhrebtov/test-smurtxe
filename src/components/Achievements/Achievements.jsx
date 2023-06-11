@@ -1,4 +1,5 @@
 import Divider from "../ui/Divider/Divider";
+import Message from "../ui/Message/Message";
 import Title from "../ui/Title/Title";
 
 import {
@@ -19,19 +20,23 @@ const Achievements = ({ ideasList }) => {
       }, {})
   ).map(([key, quantity]) => ({ type: key, quantity }));
 
-  console.log(countType);
-
   return (
     <section>
       <Title>Achievements</Title>
-      <StyledGrid container spacing={{ sm: 2, md: 3 }} columns={{ md: 12 }}>
-        {countType.map(({ type, quantity }, index) => (
-          <StyledGridItem item sm={6} md={4} key={index + 1}>
-            <Quantity>{quantity}</Quantity>
-            <StyledType>{type}</StyledType>
-          </StyledGridItem>
-        ))}
-      </StyledGrid>
+      {!countType.length ? (
+        <Message>
+          You have no achievements yet, you should complete your idea
+        </Message>
+      ) : (
+        <StyledGrid container spacing={{ sm: 2, md: 3 }} columns={{ md: 12 }}>
+          {countType.map(({ type, quantity }, index) => (
+            <StyledGridItem item sm={6} md={4} key={index + 1}>
+              <Quantity>{quantity}</Quantity>
+              <StyledType>{type}</StyledType>
+            </StyledGridItem>
+          ))}
+        </StyledGrid>
+      )}
       <Divider />
     </section>
   );

@@ -1,11 +1,13 @@
 import { Typography, Grid } from "@mui/material";
+
+import Divider from "../ui/Divider/Divider";
+
 import {
   Item,
   HoverWrapper,
   StyledPrimaryBtn,
   StyledSecondaryBtn,
 } from "./IdeaItem.styled";
-import Divider from "../ui/Divider/Divider";
 
 const IdeaItem = ({
   activity,
